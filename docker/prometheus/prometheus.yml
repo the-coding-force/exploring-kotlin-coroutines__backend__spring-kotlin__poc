@@ -10,12 +10,11 @@ alerting:
     timeout: 10s
     api_version: v1
 scrape_configs:
-- job_name: prometheus
+- job_name: 'spring-boot-application'
   honor_timestamps: true
   scrape_interval: 15s
   scrape_timeout: 10s
-  metrics_path: /metrics
-  scheme: http
+  metrics_path: '/actuator/prometheus'
   static_configs:
   - targets:
-    - localhost:9090
+    - 172.17.0.1:8080
