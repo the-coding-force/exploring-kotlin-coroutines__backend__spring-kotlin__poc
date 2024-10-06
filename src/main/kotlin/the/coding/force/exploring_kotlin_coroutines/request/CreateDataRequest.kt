@@ -7,7 +7,6 @@ data class CreateDataRequest(
     val status: DataStatusEnum?
 )
 
-
 fun CreateDataRequest.toDto() = DataDto(
     status = status ?: DataStatusEnum.TODO
 )

@@ -25,10 +25,21 @@ We follow **GitFlow** and manage changes through **Pull Requests (PRs)**.
 To run the application locally, use Docker Compose. Execute the following command:
 
 ```sh
-docker compose up -d
+docker compose -f docker/docker-compose.yml up -d
 ```
 
 After the Docker containers are up and running, start the Spring Boot application with:
 ```sh
 ./gradlew bootRun
 ```
+
+## 📊 Acessing Grafana locally:
+
+To access Grafana, after application are up and running, open your browser and go to `http://localhost:3000`. 
+Use the following credentials:
+- **Username:** admin
+- **Password:** grafana
+
+## 📊 Acessing Grafana locally:
+
+To access Prometheus, after application are up and running, open your browser and go to `http://localhost:9090`.

@@ -7,7 +7,6 @@ data class DataDto(
     val status: DataStatusEnum
 )
 
-
 fun DataDto.toEntity() = DataEntity(
     id = null,
     status = status.name

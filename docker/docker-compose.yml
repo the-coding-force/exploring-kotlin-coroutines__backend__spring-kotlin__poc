@@ -8,7 +8,7 @@ services:
       - "9090:9090"
     restart: unless-stopped
     volumes:
-      - ./docker/prometheus/prometheus:/etc/prometheus.yml
+      - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
       - prom_data:/prometheus
     networks:
       - metrics
@@ -23,7 +23,7 @@ services:
       - GF_SECURITY_ADMIN_USER=admin
       - GF_SECURITY_ADMIN_PASSWORD=grafana
     volumes:
-      - ./grafana/provisioning:/etc/grafana/provisioning
+      - ../grafana/provisioning:/etc/grafana/provisioning
     networks:
       - metrics
 
@@ -40,12 +40,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     networks:
       - metrics
+
   flyway:
     image: flyway/flyway
     container_name: flyway
-    command: [ "-url=jdbc:postgresql://postgres:5432/database-test", "-user=local", "-password=local", "migrate" ]
+    command: -url=jdbc:postgresql://postgres:5432/database-test -user=local -password=local -locations=filesystem:/flyway/sql migrate
     volumes:
-      - ./flyway/sql:/flyway/sql
+      - ../src/main/resources/db/migration:/flyway/sql
     depends_on:
       - postgres
     networks:
