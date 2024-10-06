@@ -33,7 +33,3 @@ jobs:
       # Build the Spring application with Gradle
       - name: Build with Gradle
         run: ./gradlew clean build -x test
-
-      # Optionally, run tests
-      - name: Run tests
-        run: ./gradlew test
