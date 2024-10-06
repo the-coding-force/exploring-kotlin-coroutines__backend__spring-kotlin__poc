@@ -14,9 +14,6 @@ data class DataEntity(
     @Column(name = "IDT_DATA")
     val id: Long? = null,
 
-    @Column(name = "DES_TITLE")
-    var title: String,
+    @Column(name = "DES_STATUS")
+    var status: String,
 )
-
-// todo add migration
-// todo test database connection

@@ -13,9 +13,9 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
   datasource:
     password: local
-    driver-class-name: org.postgresql.Driver
     username: local
-    url: jdbc:postgresql://localhost:5432/task-manager-poc
+    url: jdbc:postgresql://localhost:5432/database-test
+    driver-class-name: org.postgresql.Driver
   flyway:
     locations: classpath:db/migration
 

@@ -19,3 +19,16 @@ This PoC aims to stress test a **[Spring](https://spring.io/)** application usin
 ## ⚙️ Workflow:
 
 We follow **GitFlow** and manage changes through **Pull Requests (PRs)**.
+
+## 🚀 Running Locally
+
+To run the application locally, use Docker Compose. Execute the following command:
+
+```sh
+docker compose up -d
+```
+
+After the Docker containers are up and running, start the Spring Boot application with:
+```sh
+./gradlew bootRun
+```
