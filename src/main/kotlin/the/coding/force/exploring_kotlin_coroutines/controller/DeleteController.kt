@@ -14,5 +14,4 @@ class DeleteController(
         deleteDataService.delete(dataId)
         return ResponseEntity.ok().build()
     }
-
 }

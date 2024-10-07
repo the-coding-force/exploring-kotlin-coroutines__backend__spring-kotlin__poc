@@ -15,5 +15,4 @@ class UpdateController(
         updateDataService.update(dataId, body)
         return ResponseEntity.ok().build()
     }
-
 }

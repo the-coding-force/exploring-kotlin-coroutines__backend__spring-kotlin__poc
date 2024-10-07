@@ -12,7 +12,7 @@ import the.coding.force.exploring_kotlin_coroutines.request.toDto
 class UpdateDataService(
     private val dataRepository: DataRepository
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     fun update(dataId: Long, body: CreateDataRequest) {
         val data = dataRepository.findById(dataId).orElse(null)
@@ -23,11 +23,9 @@ class UpdateDataService(
             it.status = entity.status
 
             dataRepository.save(it)
-            logger.info { "UpdateDataService.update, data with id ${it.id} was updated"}
-
+            logger.info { "UpdateDataService.update, data with id ${it.id} was updated" }
         } ?: run {
             throw DataNotFoundException("the data with $dataId was not found to update it")
         }
-
     }
 }

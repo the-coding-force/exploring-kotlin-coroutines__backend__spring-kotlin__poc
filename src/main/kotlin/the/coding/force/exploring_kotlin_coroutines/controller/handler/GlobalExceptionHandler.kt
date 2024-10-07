@@ -10,8 +10,8 @@ import the.coding.force.exploring_kotlin_coroutines.Exception.DataNotFoundExcept
 import java.time.LocalDate
 
 @RestControllerAdvice
-class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
-    private fun  createNewResponseError(
+class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
+    private fun createNewResponseError(
         status: HttpStatus,
         exception: Throwable,
         request: WebRequest
@@ -40,6 +40,4 @@ class GlobalExceptionHandler: ResponseEntityExceptionHandler() {
             HttpStatus.NOT_FOUND
         )
     }
-
-
 }

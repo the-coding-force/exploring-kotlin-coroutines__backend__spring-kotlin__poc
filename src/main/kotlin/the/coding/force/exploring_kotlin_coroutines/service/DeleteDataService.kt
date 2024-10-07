@@ -9,7 +9,7 @@ import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 class DeleteDataService(
     private val dataRepository: DataRepository
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     fun delete(dataId: Long) {
         val data = dataRepository.findById(dataId).orElse(null)
@@ -17,11 +17,8 @@ class DeleteDataService(
         data?.let {
             dataRepository.deleteById(dataId)
             logger.info { "DeleteDataService.delete, data with id ${it.id} was deleted" }
-
         } ?: run {
             throw DataNotFoundException("data with $dataId was not found to delete it")
         }
-
-
     }
 }

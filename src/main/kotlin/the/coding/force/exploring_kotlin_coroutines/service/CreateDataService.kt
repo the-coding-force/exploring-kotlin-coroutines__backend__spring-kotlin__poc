@@ -9,7 +9,7 @@ import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 class CreateDataService(
     private val dataRepository: DataRepository
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     fun create(dto: DataDto) {
         dataRepository.save(dto.toEntity()).run {
