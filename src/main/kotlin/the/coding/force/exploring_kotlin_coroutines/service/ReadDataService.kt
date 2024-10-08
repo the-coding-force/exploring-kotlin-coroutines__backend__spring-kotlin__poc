@@ -13,13 +13,13 @@ class ReadDataService(
     private val logger = KotlinLogging.logger { }
 
     fun read(dataId: Long): ReadDataResponse {
-        val data = dataRepository.findById(dataId).orElse(null)
-
-        data?.let {
-            logger.info { "ReadDataService.read, data with id ${it.id} was found" }
-            return ReadDataResponse(it.status)
-        } ?: run {
-            throw DataNotFoundException("Data with id $dataId was not found to get it")
-        }
+        return dataRepository.findById(dataId)
+            .map { data ->
+                logger.info { "ReadDataService.read: Data with ID ${data.id} was found" }
+                ReadDataResponse(data.status)
+            }
+            .orElseThrow {
+                DataNotFoundException("Data with ID $dataId was not found to retrieve it")
+            }
     }
 }

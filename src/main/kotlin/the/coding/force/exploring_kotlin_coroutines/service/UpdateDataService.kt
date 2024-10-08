@@ -15,17 +15,16 @@ class UpdateDataService(
     private val logger = KotlinLogging.logger { }
 
     fun update(dataId: Long, body: CreateDataRequest) {
-        val data = dataRepository.findById(dataId).orElse(null)
+        val updatedData = dataRepository.findById(dataId)
+            .map { data ->
+                val updatedStatus = body.toDto().toEntity().status
+                data.copy(status = updatedStatus)
+            }
+            .orElseThrow {
+                DataNotFoundException("Data with ID $dataId was not found for update")
+            }
 
-        data?.let {
-            val dto = body.toDto()
-            val entity = dto.toEntity()
-            it.status = entity.status
-
-            dataRepository.save(it)
-            logger.info { "UpdateDataService.update, data with id ${it.id} was updated" }
-        } ?: run {
-            throw DataNotFoundException("the data with $dataId was not found to update it")
-        }
+        dataRepository.save(updatedData)
+        logger.info { "UpdateDataService.update: Data with ID ${updatedData.id} was updated" }
     }
 }
