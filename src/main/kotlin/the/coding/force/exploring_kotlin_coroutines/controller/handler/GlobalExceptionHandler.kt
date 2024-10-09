@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
 import the.coding.force.exploring_kotlin_coroutines.Exception.DataNotFoundException
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 @RestControllerAdvice
 class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
@@ -17,7 +17,7 @@ class GlobalExceptionHandler : ResponseEntityExceptionHandler() {
         request: WebRequest
     ): ResponseError {
         return ResponseError(
-            LocalDate.now(),
+            ZonedDateTime.now(),
             status.value(),
             status.name,
             exception.message ?: "default message",
