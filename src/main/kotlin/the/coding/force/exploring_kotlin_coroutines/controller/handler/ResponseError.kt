@@ -1,9 +1,9 @@
 package the.coding.force.exploring_kotlin_coroutines.controller.handler
 
-import java.time.LocalDate
+import java.time.ZonedDateTime
 
 data class ResponseError(
-    val timestamp: LocalDate,
+    val timestamp: ZonedDateTime,
     val status: Int,
     val error: String,
     val message: String,
