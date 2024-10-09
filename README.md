@@ -40,6 +40,6 @@ Use the following credentials:
 - **Username:** admin
 - **Password:** grafana
 
-## 📊 Acessing Grafana locally:
+## 📊 Acessing Prometheus locally:
 
 To access Prometheus, after application are up and running, open your browser and go to `http://localhost:9090`.
