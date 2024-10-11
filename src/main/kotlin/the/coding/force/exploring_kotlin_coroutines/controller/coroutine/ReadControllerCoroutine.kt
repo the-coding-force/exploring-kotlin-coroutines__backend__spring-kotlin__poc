@@ -15,7 +15,7 @@ class ReadControllerCoroutine(
 ) {
 
     @GetMapping("read/{id}")
-    suspend fun read(@PathVariable("id") dataId: Long):ResponseEntity<ReadDataResponse> {
+    suspend fun read(@PathVariable("id") dataId: Long): ResponseEntity<ReadDataResponse> {
         val data = readDataService.read(dataId)
         return ResponseEntity.ok(data)
     }

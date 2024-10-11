@@ -15,9 +15,10 @@ class UpdateControllerCoroutine(
     private val updateDataService: UpdateDataServiceCoroutine
 ) {
     @PutMapping("update/{id}")
-    suspend fun update(@PathVariable("id") dataId: Long,
-                       @RequestBody body: CreateDataRequest):ResponseEntity<Unit>
-    {
+    suspend fun update(
+        @PathVariable("id") dataId: Long,
+        @RequestBody body: CreateDataRequest
+    ): ResponseEntity<Unit> {
         updateDataService.update(dataId, body)
         return ResponseEntity.ok().build()
     }

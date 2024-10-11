@@ -12,7 +12,7 @@ class DeleteDataServiceCoroutine(
     private val dataRepository: DataRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     suspend fun delete(dataId: Long) {
         withContext(ioDispatcher) {
@@ -20,7 +20,7 @@ class DeleteDataServiceCoroutine(
                 {
                     data ->
                     dataRepository.deleteById(dataId)
-                    logger.info{"DeleteDataService.delete: Data with ID ${data.id} was deleted"}
+                    logger.info { "DeleteDataService.delete: Data with ID ${data.id} was deleted" }
                 },
                 {
                     throw DataNotFoundException("Data with id $dataId was not found for deletion")

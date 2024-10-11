@@ -15,7 +15,7 @@ class CreateControllerCoroutine(
     private val createDataService: CreateDataServiceCoroutine
 ) {
     @PostMapping("/create")
-    suspend fun create(@RequestBody request: CreateDataRequest):ResponseEntity<Unit> {
+    suspend fun create(@RequestBody request: CreateDataRequest): ResponseEntity<Unit> {
         createDataService.create(request.toDto())
         return ResponseEntity.ok().build()
     }

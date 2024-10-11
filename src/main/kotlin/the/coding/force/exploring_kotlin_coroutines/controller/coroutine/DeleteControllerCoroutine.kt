@@ -15,7 +15,7 @@ class DeleteControllerCoroutine(
 
     @DeleteMapping("delete/{id}")
     suspend fun delete(@PathVariable("id") dataId: Long): ResponseEntity<Unit> {
-        deleteDataService.delete(dataId);
+        deleteDataService.delete(dataId)
         return ResponseEntity.ok().build()
     }
 }

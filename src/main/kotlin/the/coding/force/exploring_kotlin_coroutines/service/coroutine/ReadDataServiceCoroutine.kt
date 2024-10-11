@@ -13,7 +13,7 @@ class ReadDataServiceCoroutine(
     private val dataRepository: DataRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     suspend fun read(dataId: Long): ReadDataResponse {
         return withContext(ioDispatcher) {

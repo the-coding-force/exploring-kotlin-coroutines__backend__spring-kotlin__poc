@@ -8,13 +8,12 @@ import the.coding.force.exploring_kotlin_coroutines.dto.DataDto
 import the.coding.force.exploring_kotlin_coroutines.dto.toEntity
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
-
 @Service
 class CreateDataServiceCoroutine(
     private val dataRepository: DataRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     suspend fun create(dataDto: DataDto) {
         withContext(ioDispatcher) {
@@ -22,5 +21,4 @@ class CreateDataServiceCoroutine(
             logger.info { "CreateDataService.create, entity saved" }
         }
     }
-
 }

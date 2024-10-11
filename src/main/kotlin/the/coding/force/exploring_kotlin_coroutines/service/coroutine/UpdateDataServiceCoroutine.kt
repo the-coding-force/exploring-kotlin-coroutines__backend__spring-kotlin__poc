@@ -15,7 +15,7 @@ class UpdateDataServiceCoroutine(
     private val dataRepository: DataRepository,
     private val ioDispatcher: CoroutineDispatcher
 ) {
-    private val logger = KotlinLogging.logger {  }
+    private val logger = KotlinLogging.logger { }
 
     suspend fun update(dataId: Long, createDataRequest: CreateDataRequest) {
         withContext(ioDispatcher) {
