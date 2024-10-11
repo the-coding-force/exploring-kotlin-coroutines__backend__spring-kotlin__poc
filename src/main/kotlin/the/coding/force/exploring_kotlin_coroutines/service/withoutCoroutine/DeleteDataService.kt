@@ -1,4 +1,4 @@
-package the.coding.force.exploring_kotlin_coroutines.service
+package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
