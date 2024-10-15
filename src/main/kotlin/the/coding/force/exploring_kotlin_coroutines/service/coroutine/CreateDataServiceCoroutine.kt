@@ -1,6 +1,5 @@
 package the.coding.force.exploring_kotlin_coroutines.service.coroutine
 
-import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
