@@ -1,4 +1,4 @@
-package the.coding.force.exploring_kotlin_coroutines.controller
+package the.coding.force.exploring_kotlin_coroutines.controller.withoutCoroutine
 
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 import the.coding.force.exploring_kotlin_coroutines.request.CreateDataRequest
-import the.coding.force.exploring_kotlin_coroutines.service.UpdateDataService
+import the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine.UpdateDataService
 
 @RestController
 @RequestMapping("/api")
