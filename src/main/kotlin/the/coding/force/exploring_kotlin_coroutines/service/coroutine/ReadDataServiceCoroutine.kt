@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import the.coding.force.exploring_kotlin_coroutines.Exception.DataNotFoundException
+import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import the.coding.force.exploring_kotlin_coroutines.response.ReadDataResponse
 
