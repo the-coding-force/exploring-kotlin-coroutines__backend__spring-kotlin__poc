@@ -1,31 +1,33 @@
 package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
-import io.mockk.*
+import io.mockk.every
+import io.mockk.mockk
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
-import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import the.coding.force.exploring_kotlin_coroutines.dto.toEntity
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
 import the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum
 import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
+import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import the.coding.force.exploring_kotlin_coroutines.request.CreateDataRequest
 import the.coding.force.exploring_kotlin_coroutines.request.toDto
-import java.util.*
+import java.util.Optional
 import kotlin.test.assertEquals
 
 class UpdateDataServiceTest {
     private val dataRepository: DataRepository = mockk()
-    private val updateDataService = UpdateDataService(dataRepository);
+    private val updateDataService = UpdateDataService(dataRepository)
 
     @Test
     fun `should update entity when ID exists`() {
         val existingId = 1L
         val existingBody = CreateDataRequest(DataStatusEnum.COMPLETED)
 
-        //creating a mock from DataEntity
+        // creating a mock from DataEntity
         val mockData = DataEntity(existingId, DataStatusEnum.TODO.name)
 
-        //when the method findById was called always return a optional of mockData
+        // when the method findById was called always return a optional of mockData
         every { dataRepository.findById(existingId) } returns Optional.of(mockData)
 
         // when the method save was called, it will return the same object updated
@@ -33,14 +35,14 @@ class UpdateDataServiceTest {
 
         updateDataService.update(existingId, existingBody)
 
-        //verify if the method findById is called exactly one time
-        verify(exactly = 1) {dataRepository.findById(existingId)}
+        // verify if the method findById is called exactly one time
+        verify(exactly = 1) { dataRepository.findById(existingId) }
 
-        //update the mockData with the actual info
+        // update the mockData with the actual info
         val updatedData = mockData.copy(status = existingBody.toDto().toEntity().status)
 
-        //verify if the method save with the updated object is called exactly one time
-        verify(exactly = 1) {dataRepository.save(updatedData)}
+        // verify if the method save with the updated object is called exactly one time
+        verify(exactly = 1) { dataRepository.save(updatedData) }
     }
 
     @Test
@@ -48,7 +50,7 @@ class UpdateDataServiceTest {
         val nonExistingId = 1000L
         val existingBody = CreateDataRequest(DataStatusEnum.COMPLETED)
 
-        //when the method findById was called always return a optional of empty
+        // when the method findById was called always return a optional of empty
         every { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
         // verify if the exception DataNotFoundException was thrown
@@ -66,5 +68,4 @@ class UpdateDataServiceTest {
         // verify if the method save was not called any time
         verify(exactly = 0) { dataRepository.save(any()) }
     }
-
 }

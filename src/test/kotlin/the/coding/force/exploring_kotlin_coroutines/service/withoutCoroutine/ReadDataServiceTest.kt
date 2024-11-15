@@ -8,12 +8,11 @@ import org.junit.jupiter.api.assertThrows
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
 import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
-import java.util.*
+import java.util.Optional
 import kotlin.test.assertEquals
 
-
 class ReadDataServiceTest {
-    private val dataRepository: DataRepository = mockk();
+    private val dataRepository: DataRepository = mockk()
     private val readDataService = ReadDataService(dataRepository)
 
     @Test
@@ -31,10 +30,10 @@ class ReadDataServiceTest {
 
         val response = readDataService.read(existingId)
 
-        //verify if the response status is correctly
+        // verify if the response status is correctly
         assertEquals("VALID", response.status)
 
-        //verify if the method findById is called exactly one time
+        // verify if the method findById is called exactly one time
         verify(exactly = 1) { dataRepository.findById(existingId) }
     }
 
@@ -50,14 +49,13 @@ class ReadDataServiceTest {
             readDataService.read(nonExistingId)
         }
 
-        //verify if the message of exception is correct
+        // verify if the message of exception is correct
         assertEquals(
             "Data with ID $nonExistingId was not found to retrieve it",
             exception.message
         )
 
-        //verify if the method findById is called exactly one time
-        verify(exactly = 1) {dataRepository.findById(nonExistingId)}
+        // verify if the method findById is called exactly one time
+        verify(exactly = 1) { dataRepository.findById(nonExistingId) }
     }
-
 }
