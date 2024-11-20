@@ -15,9 +15,10 @@ class CreateDataServiceTest {
 
     @Test
     fun `should save entity`() {
-        // create dto for createDataService parem
+        // create dto for createDataService param
         val dto = DataDto(DataStatusEnum.TODO)
 
+        // every time datarepository was called its return the first argument saved
         every { dataRepository.save(any()) } answers { firstArg() }
         createDataService.create(dto)
 

@@ -21,7 +21,7 @@ class DeleteDataServiceCoroutine(
                     logger.info { "DeleteDataService.delete with coroutine: Data with ID ${data.id} was deleted" }
                 },
                 {
-                    throw DataNotFoundException("Data with id $dataId was not found for deletion")
+                    throw DataNotFoundException("Data with ID $dataId was not found for deletion")
                 }
 
             )
