@@ -1,8 +1,13 @@
 package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
-import io.mockk.*
+import io.mockk.called
+import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.just
+import io.mockk.mockk
+import io.mockk.runs
+import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
@@ -58,6 +63,6 @@ class DeleteDataServiceTest(
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method deleteById was not called any time
-        verify{ dataRepository.deleteById(nonExistingId) wasNot called }
+        verify { dataRepository.deleteById(nonExistingId) wasNot called }
     }
 }

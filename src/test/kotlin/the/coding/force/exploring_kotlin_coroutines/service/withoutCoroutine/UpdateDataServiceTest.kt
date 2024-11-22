@@ -69,6 +69,6 @@ class UpdateDataServiceTest(
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method save was not called any time
-        verify{ dataRepository.save(any()) wasNot called }
+        verify { dataRepository.save(any()) wasNot called }
     }
 }
