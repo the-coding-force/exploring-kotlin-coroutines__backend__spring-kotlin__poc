@@ -1,10 +1,8 @@
 package the.coding.force.exploring_kotlin_coroutines.service.coroutine
 
-import io.mockk.coEvery
-import io.mockk.coVerify
-import io.mockk.just
-import io.mockk.mockk
-import io.mockk.runs
+import io.mockk.*
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -14,9 +12,10 @@ import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import java.util.Optional
 import kotlin.test.assertEquals
 
-class DeleteDataServiceCoroutineTest {
-    private val dataRepository: DataRepository = mockk()
-    private val deleteDataServiceCoroutine = DeleteDataServiceCoroutine(dataRepository)
+class DeleteDataServiceCoroutineTest(
+    @MockK private val dataRepository: DataRepository,
+    @InjectMockKs private val deleteDataServiceCoroutine: DeleteDataServiceCoroutine
+) {
 
     @Test
     fun `should delete data when ID exists`() = runTest {
@@ -61,6 +60,6 @@ class DeleteDataServiceCoroutineTest {
         coVerify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method deleteById was not called any time
-        coVerify(exactly = 0) { dataRepository.deleteById(nonExistingId) }
+        coVerify{ dataRepository.deleteById(nonExistingId) wasNot called }
     }
 }

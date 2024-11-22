@@ -1,8 +1,10 @@
 package the.coding.force.exploring_kotlin_coroutines.service.coroutine
 
+import io.mockk.called
 import io.mockk.coEvery
 import io.mockk.coVerify
-import io.mockk.mockk
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
@@ -16,9 +18,10 @@ import the.coding.force.exploring_kotlin_coroutines.request.toDto
 import java.util.Optional
 import kotlin.test.assertEquals
 
-class UpdateDataServiceCoroutineTest {
-    private val dataRepository: DataRepository = mockk()
-    private val updateDataServiceCoroutine = UpdateDataServiceCoroutine(dataRepository)
+class UpdateDataServiceCoroutineTest(
+    @MockK private val dataRepository: DataRepository,
+    @InjectMockKs private val updateDataServiceCoroutine: UpdateDataServiceCoroutine
+) {
 
     @Test
     fun `should update entity when ID exists`() = runTest {
@@ -67,6 +70,6 @@ class UpdateDataServiceCoroutineTest {
         coVerify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method save was not called any time
-        coVerify(exactly = 0) { dataRepository.save(any()) }
+        coVerify{ dataRepository.save(any()) wasNot called }
     }
 }

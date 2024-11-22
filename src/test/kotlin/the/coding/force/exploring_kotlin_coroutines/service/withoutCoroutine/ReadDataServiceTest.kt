@@ -1,6 +1,8 @@
 package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
 import io.mockk.every
+import io.mockk.impl.annotations.InjectMockKs
+import io.mockk.impl.annotations.MockK
 import io.mockk.mockk
 import io.mockk.verify
 import org.junit.jupiter.api.Test
@@ -11,9 +13,10 @@ import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import java.util.Optional
 import kotlin.test.assertEquals
 
-class ReadDataServiceTest {
-    private val dataRepository: DataRepository = mockk()
-    private val readDataService = ReadDataService(dataRepository)
+class ReadDataServiceTest(
+    @MockK private val dataRepository: DataRepository,
+    @InjectMockKs private val readDataService: ReadDataService
+) {
 
     @Test
     fun `should get data when ID exists`() {
