@@ -5,20 +5,22 @@ import io.mockk.coVerify
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
 import io.mockk.mockk
 import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
 import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import java.util.Optional
 import kotlin.test.assertEquals
 
-class ReadDataServiceCoroutineTest(
-    @MockK private val dataRepository: DataRepository,
-    @InjectMockKs private val readDataServiceCoroutine: ReadDataServiceCoroutine
-) {
+@ExtendWith(MockKExtension::class)
+class ReadDataServiceCoroutineTest{
+    @MockK private lateinit var dataRepository: DataRepository
+    @InjectMockKs private lateinit var readDataServiceCoroutine: ReadDataServiceCoroutine
 
     @Test
     fun `should get data when ID exists`() = runTest {

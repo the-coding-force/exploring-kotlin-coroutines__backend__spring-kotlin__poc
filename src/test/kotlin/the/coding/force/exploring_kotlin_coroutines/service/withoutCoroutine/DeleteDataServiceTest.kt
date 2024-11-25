@@ -1,25 +1,27 @@
 package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
-import io.mockk.called
 import io.mockk.every
 import io.mockk.impl.annotations.InjectMockKs
 import io.mockk.impl.annotations.MockK
+import io.mockk.junit5.MockKExtension
 import io.mockk.just
 import io.mockk.mockk
 import io.mockk.runs
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.api.extension.ExtendWith
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
 import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import java.util.Optional
 import kotlin.test.assertEquals
 
-class DeleteDataServiceTest(
-    @MockK private val dataRepository: DataRepository,
-    @InjectMockKs private val deleteDataService: DeleteDataService
-) {
+@ExtendWith(MockKExtension::class)
+class DeleteDataServiceTest{
+    @MockK private lateinit var dataRepository: DataRepository
+    @InjectMockKs private lateinit var deleteDataService: DeleteDataService
+
     @Test
     fun `should delete data when ID exists`() {
         val existingId = 1L
@@ -63,6 +65,6 @@ class DeleteDataServiceTest(
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method deleteById was not called any time
-        verify { dataRepository.deleteById(nonExistingId) wasNot called }
+        verify(exactly = 0){ dataRepository.deleteById(nonExistingId)}
     }
 }
