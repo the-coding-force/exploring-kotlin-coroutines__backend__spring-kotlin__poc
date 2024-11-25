@@ -19,7 +19,7 @@ import java.util.Optional
 import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
-class UpdateDataServiceTest{
+class UpdateDataServiceTest {
     @MockK private lateinit var dataRepository: DataRepository
     @InjectMockKs private lateinit var updateDataService: UpdateDataService
 
@@ -70,6 +70,6 @@ class UpdateDataServiceTest{
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method save was not called any time
-        verify(exactly = 0){ dataRepository.save(any()) }
+        verify(exactly = 0) { dataRepository.save(any()) }
     }
 }

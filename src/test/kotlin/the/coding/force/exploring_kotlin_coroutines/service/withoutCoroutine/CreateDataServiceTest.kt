@@ -13,7 +13,7 @@ import the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
 @ExtendWith(MockKExtension::class)
-class CreateDataServiceTest{
+class CreateDataServiceTest {
     @MockK private lateinit var dataRepository: DataRepository
 
     @InjectMockKs private lateinit var createDataService: CreateDataService

@@ -16,7 +16,7 @@ import java.util.Optional
 import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
-class ReadDataServiceTest{
+class ReadDataServiceTest {
     @MockK private lateinit var dataRepository: DataRepository
     @InjectMockKs private lateinit var readDataService: ReadDataService
 

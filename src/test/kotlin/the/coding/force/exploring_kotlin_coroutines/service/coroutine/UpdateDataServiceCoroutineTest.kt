@@ -1,6 +1,5 @@
 package the.coding.force.exploring_kotlin_coroutines.service.coroutine
 
-import io.mockk.called
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.InjectMockKs
@@ -22,8 +21,8 @@ import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
 class UpdateDataServiceCoroutineTest {
-   @MockK private lateinit var dataRepository: DataRepository
-   @InjectMockKs private lateinit var updateDataServiceCoroutine: UpdateDataServiceCoroutine
+    @MockK private lateinit var dataRepository: DataRepository
+    @InjectMockKs private lateinit var updateDataServiceCoroutine: UpdateDataServiceCoroutine
 
     @Test
     fun `should update entity when ID exists`() = runTest {

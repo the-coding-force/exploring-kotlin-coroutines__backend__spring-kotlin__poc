@@ -1,6 +1,5 @@
 package the.coding.force.exploring_kotlin_coroutines.service.coroutine
 
-import io.mockk.called
 import io.mockk.coEvery
 import io.mockk.coVerify
 import io.mockk.impl.annotations.InjectMockKs

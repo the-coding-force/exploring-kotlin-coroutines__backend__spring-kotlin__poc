@@ -18,7 +18,7 @@ import java.util.Optional
 import kotlin.test.assertEquals
 
 @ExtendWith(MockKExtension::class)
-class DeleteDataServiceTest{
+class DeleteDataServiceTest {
     @MockK private lateinit var dataRepository: DataRepository
     @InjectMockKs private lateinit var deleteDataService: DeleteDataService
 
@@ -65,6 +65,6 @@ class DeleteDataServiceTest{
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
 
         // verify if the method deleteById was not called any time
-        verify(exactly = 0){ dataRepository.deleteById(nonExistingId)}
+        verify(exactly = 0) { dataRepository.deleteById(nonExistingId) }
     }
 }
