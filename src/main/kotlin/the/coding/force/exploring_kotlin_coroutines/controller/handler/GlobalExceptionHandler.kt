@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler
 import org.springframework.web.bind.annotation.RestControllerAdvice
 import org.springframework.web.context.request.WebRequest
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler
-import the.coding.force.exploring_kotlin_coroutines.Exception.DataNotFoundException
+import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import java.time.ZonedDateTime
 
 @RestControllerAdvice

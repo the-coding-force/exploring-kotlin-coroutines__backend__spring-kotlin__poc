@@ -4,7 +4,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import the.coding.force.exploring_kotlin_coroutines.Exception.DataNotFoundException
+import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
 @Service
@@ -16,8 +16,7 @@ class DeleteDataServiceCoroutine(
     suspend fun delete(dataId: Long) {
         withContext(Dispatchers.IO) {
             dataRepository.findById(dataId).ifPresentOrElse(
-                {
-                    data ->
+                { data ->
                     dataRepository.deleteById(dataId)
                     logger.info { "DeleteDataService.delete with coroutine: Data with ID ${data.id} was deleted" }
                 },
