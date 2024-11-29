@@ -40,7 +40,7 @@ dependencies {
     implementation ("io.github.microutils:kotlin-logging-jvm:$ktLoggingVersion")
 
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
 
     runtimeOnly('org.postgresql:postgresql')
 
