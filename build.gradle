@@ -24,11 +24,12 @@ repositories {
     mavenCentral()
 }
 
-ext{
+ext {
     flywayVersion = "8.5.13"
     ktLoggingVersion = "3.0.5"
     mockkVersion = "1.13.5"
     kotlinxCoroutineTestVersion = "1.7.3"
+}
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'

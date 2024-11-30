@@ -6,8 +6,8 @@ import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.delay
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import the.coding.force.exploring_kotlin_coroutines.dto.DataDto
-import the.coding.force.exploring_kotlin_coroutines.dto.toEntity
+import the.coding.force.exploring_kotlin_coroutines.dto.BulkCreateDataDto
+import the.coding.force.exploring_kotlin_coroutines.mapper.toEntity
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
 @Service
@@ -16,7 +16,7 @@ class BulkCreateDataServiceCoroutine(
 ) {
     private val logger = KotlinLogging.logger { }
 
-    suspend fun create(quantity: Int, dto: DataDto) = coroutineScope {
+    suspend fun create(quantity: Int, dto: BulkCreateDataDto) = coroutineScope {
         val coroutines = (1..quantity).map { index ->
             async {
                 fakeNetworkCall()
