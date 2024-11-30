@@ -5,8 +5,8 @@ import org.springframework.web.bind.annotation.PostMapping
 import org.springframework.web.bind.annotation.RequestBody
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
+import the.coding.force.exploring_kotlin_coroutines.mapper.toDto
 import the.coding.force.exploring_kotlin_coroutines.request.CreateDataRequest
-import the.coding.force.exploring_kotlin_coroutines.request.toDto
 import the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine.CreateDataService
 
 @RestController
@@ -16,8 +16,7 @@ class CreateController(
 ) {
 
     @PostMapping("/create")
-    fun create(@RequestBody request: CreateDataRequest): ResponseEntity<Unit> {
-        createDataService.create(request.toDto())
-        return ResponseEntity.ok().build()
-    }
+    fun create(@RequestBody request: CreateDataRequest): ResponseEntity<Unit> = createDataService
+        .create(request.toDto())
+        .run { ResponseEntity.ok().build() }
 }
