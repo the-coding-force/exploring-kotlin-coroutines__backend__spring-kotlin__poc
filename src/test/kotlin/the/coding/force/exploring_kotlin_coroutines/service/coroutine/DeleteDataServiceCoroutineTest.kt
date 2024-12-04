@@ -25,47 +25,38 @@ class DeleteDataServiceCoroutineTest {
 
     @Test
     fun `should delete data when ID exists`() = runTest {
+        // Arrange: Scenario config
         val existingId = 1L
         val mockData = mockk<DataEntity>()
 
-        // simulate a mock data from DataEntity when ID is found
         coEvery { dataRepository.findById(existingId) } returns Optional.of(mockData)
-
-        // simulate the execution from deleteById without make any action (just runs)
         coEvery { dataRepository.deleteById(existingId) } just runs
 
-        // calls the method delete
+        // Action: Execution of service
         deleteDataServiceCoroutine.delete(existingId)
 
-        // verify if the method findById was called one time
+        // Assert: verify results
         coVerify(exactly = 1) { dataRepository.findById(existingId) }
-
-        // verify if the method deleteById was called one time
         coVerify(exactly = 1) { dataRepository.deleteById(existingId) }
     }
 
     @Test
     fun `should throw exception when ID does not exist`() = runTest {
+        // Arrange: Scenario config
         val nonExistingId = 1000L
-
-        // simulate an empty mock data when it does not find the data with this ID
         coEvery { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
-        // verify if the exception DataNotFoundException was thrown
+        // Action: Execution of service
         val exception = assertThrows<DataNotFoundException> {
             deleteDataServiceCoroutine.delete(nonExistingId)
         }
 
-        // verify if the message of exception is correct
+        // Assert: verify results
         assertEquals(
             "Data with ID $nonExistingId was not found for deletion",
             exception.message
         )
-
-        // verify if the method findById was called exactly one time
         coVerify(exactly = 1) { dataRepository.findById(nonExistingId) }
-
-        // verify if the method deleteById was not called any time
         coVerify(exactly = 0) { dataRepository.deleteById(nonExistingId) }
     }
 }

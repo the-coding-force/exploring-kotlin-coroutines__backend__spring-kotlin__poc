@@ -24,45 +24,38 @@ class ReadDataServiceCoroutineTest {
 
     @Test
     fun `should get data when ID exists`() = runTest {
+        // Arrange: Scenario config
         val existingId = 1L
-
-        // creating a mock DataEntity as response for findById
         val mockData = mockk<DataEntity> {
             every { id } returns existingId
             every { status } returns "VALID"
         }
-
-        // every time that findById was called it will return an optional of mockData
         coEvery { dataRepository.findById(existingId) } returns Optional.of(mockData)
 
+        // Action: Execution of service
         val response = readDataServiceCoroutine.read(existingId)
 
-        // verify if the response status is correctly
+        // Assert: verify results
         assertEquals("VALID", response.status)
-
-        // verify if the method findById is called exactly one time
         coVerify(exactly = 1) { dataRepository.findById(existingId) }
     }
 
     @Test
     fun `should throw exception when ID does not exist`() = runTest {
+        // Arrange: Scenario config
         val nonExistingId = 1000L
-
-        // every time that findById was called it will return an optional of empty
         coEvery { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
-        // verify if the exception DataNotFoundException was thrown
+        // Action: Execution of service
         val exception = assertThrows<DataNotFoundException> {
             readDataServiceCoroutine.read(nonExistingId)
         }
 
-        // verify if the message of exception is correct
+        // Assert: Verify results
         assertEquals(
             "Data with ID $nonExistingId was not found to retrieve it",
             exception.message
         )
-
-        // verify if the method findById is called exactly one time
         coVerify(exactly = 1) { dataRepository.findById(nonExistingId) }
     }
 }

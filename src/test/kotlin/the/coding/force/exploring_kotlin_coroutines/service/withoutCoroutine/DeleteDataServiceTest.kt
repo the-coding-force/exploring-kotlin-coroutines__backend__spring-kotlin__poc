@@ -24,47 +24,38 @@ class DeleteDataServiceTest {
 
     @Test
     fun `should delete data when ID exists`() {
+        // Arrange: Scenario config
         val existingId = 1L
         val mockData = mockk<DataEntity>()
 
-        // simulate a mock data from DataEntity when ID is found
         every { dataRepository.findById(existingId) } returns Optional.of(mockData)
-
-        // simulate the execution from deleteById without make any action (just runs)
         every { dataRepository.deleteById(existingId) } just runs
 
-        // calls the method delete
+        // Action: Execution of service
         deleteDataService.delete(existingId)
 
-        // verify if the method findById was called one time
+        // Assert: Verify results
         verify(exactly = 1) { dataRepository.findById(existingId) }
-
-        // verify if the method deleteById was called one time
         verify(exactly = 1) { dataRepository.deleteById(existingId) }
     }
 
     @Test
     fun `should throw exception when ID does not exist`() {
+        // Arrange: Scenario config
         val nonExistingId = 1000L
-
-        // simulate an empty mock data when it does not find the data with this ID
         every { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
-        // verify if the exception DataNotFoundException was thrown
+        // Action: Execution of service
         val exception = assertThrows<DataNotFoundException> {
             deleteDataService.delete(nonExistingId)
         }
 
-        // verify if the message of exception is correct
+        // Assert: Verify results
         assertEquals(
             "Data with ID $nonExistingId was not found for deletion",
             exception.message
         )
-
-        // verify if the method findById was called exactly one time
         verify(exactly = 1) { dataRepository.findById(nonExistingId) }
-
-        // verify if the method deleteById was not called any time
         verify(exactly = 0) { dataRepository.deleteById(nonExistingId) }
     }
 }

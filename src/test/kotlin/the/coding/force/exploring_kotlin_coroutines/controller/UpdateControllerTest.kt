@@ -17,6 +17,7 @@ class UpdateControllerTest : IntegrationTests() {
 
     @Test
     fun `Should update a task with success - Controller without coroutine`() {
+        // Arrange: Scenario config
         val createDataRequest = CreateDataRequest(
             status = DataStatusEnum.TODO
         )
@@ -32,6 +33,7 @@ class UpdateControllerTest : IntegrationTests() {
             status = DataStatusEnum.COMPLETED.name,
         )
 
+        // Action: Execution of MVC and repository
         mockMvc.perform(
             put("/api/update/{id}", entityBefore.id)
                 .content(objectMapper.writeValueAsString(entityUpdates))
@@ -42,12 +44,14 @@ class UpdateControllerTest : IntegrationTests() {
 
         val entityAfter = repository.findAll().first()
 
+        // Assert: Verify results
         assertThat(entityAfter.id).isEqualTo(entityUpdates.id)
         assertThat(entityAfter.status).isEqualTo(entityUpdates.status)
     }
 
     @Test
     fun `Should update a task with success - Controller with coroutine`() {
+        // Arrange: Scenario config
         val createDataRequest = CreateDataRequest(
             status = DataStatusEnum.TODO
         )
@@ -63,6 +67,7 @@ class UpdateControllerTest : IntegrationTests() {
             status = DataStatusEnum.COMPLETED.name,
         )
 
+        // Action: Execution of MVC and repository
         mockMvc.perform(
             put("/api/coroutine/update/{id}", entityBefore.id)
                 .content(objectMapper.writeValueAsString(entityUpdates))
@@ -71,10 +76,10 @@ class UpdateControllerTest : IntegrationTests() {
         )
             .andExpect(status().isOk)
 
-        Thread.sleep(1000) // Necessário para o teste passar
-
+        Thread.sleep(1000) // required to pass the test
         val entityAfter = repository.findByIdOrNull(entityUpdates.id!!)
 
+        // Assert: verify results
         assertThat(entityAfter!!.id).isEqualTo(entityUpdates.id)
         assertThat(entityAfter.status).isEqualTo(entityUpdates.status)
     }

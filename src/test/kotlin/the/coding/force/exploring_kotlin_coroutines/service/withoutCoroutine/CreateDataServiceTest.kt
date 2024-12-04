@@ -7,9 +7,9 @@ import io.mockk.junit5.MockKExtension
 import io.mockk.verify
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import the.coding.force.exploring_kotlin_coroutines.dto.DataDto
-import the.coding.force.exploring_kotlin_coroutines.dto.toEntity
+import the.coding.force.exploring_kotlin_coroutines.dto.CreateDataDto
 import the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum
+import the.coding.force.exploring_kotlin_coroutines.mapper.toEntity
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
 @ExtendWith(MockKExtension::class)
@@ -20,14 +20,14 @@ class CreateDataServiceTest {
 
     @Test
     fun `should save entity`() {
-        // create dto for createDataService param
-        val dto = DataDto(DataStatusEnum.TODO)
-
-        // every time dataRepository was called its return the first argument saved
+        // Arrange: Scenario config
+        val dto = CreateDataDto(DataStatusEnum.TODO)
         every { dataRepository.save(any()) } answers { firstArg() }
+
+        // Action: Execution of service
         createDataService.create(dto)
 
-        // verify if method save from dataRepository was called exactly one time
+        // Assert: Verify results
         verify(exactly = 1) { dataRepository.save(dto.toEntity()) }
     }
 }
