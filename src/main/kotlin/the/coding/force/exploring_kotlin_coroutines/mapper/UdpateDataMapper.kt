@@ -6,5 +6,5 @@ import the.coding.force.exploring_kotlin_coroutines.request.UpdateDataRequest
 
 fun UpdateDataRequest.toDto(id: Long) = UpdateDataDto(
     id = id,
-    status = DataStatusEnum.valueOf(status.name)
+    status = DataStatusEnum.valueOf(this.status.name)
 )

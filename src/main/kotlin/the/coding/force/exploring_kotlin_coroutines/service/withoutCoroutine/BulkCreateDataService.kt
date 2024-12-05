@@ -2,8 +2,8 @@ package the.coding.force.exploring_kotlin_coroutines.service.withoutCoroutine
 
 import mu.KotlinLogging
 import org.springframework.stereotype.Service
-import the.coding.force.exploring_kotlin_coroutines.dto.DataDto
-import the.coding.force.exploring_kotlin_coroutines.dto.toEntity
+import the.coding.force.exploring_kotlin_coroutines.dto.BulkCreateDataDto
+import the.coding.force.exploring_kotlin_coroutines.mapper.toEntity
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 import java.util.concurrent.CompletableFuture
 
@@ -13,7 +13,7 @@ class BulkCreateDataService(
 ) {
     private val logger = KotlinLogging.logger { }
 
-    fun create(quantity: Int, dto: DataDto) {
+    fun create(quantity: Int, dto: BulkCreateDataDto) {
         val jobs = (1..quantity).map { index ->
             CompletableFuture.supplyAsync {
                 fakeNetworkCall()
