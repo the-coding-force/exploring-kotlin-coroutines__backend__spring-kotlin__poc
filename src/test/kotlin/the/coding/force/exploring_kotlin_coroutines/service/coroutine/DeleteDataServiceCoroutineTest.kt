@@ -25,33 +25,33 @@ class DeleteDataServiceCoroutineTest {
 
     @Test
     fun `should delete data when ID exists`() = runTest {
-        // Arrange: Scenario config
+        // Arrange
         val existingId = 1L
         val mockData = mockk<DataEntity>()
 
         coEvery { dataRepository.findById(existingId) } returns Optional.of(mockData)
         coEvery { dataRepository.deleteById(existingId) } just runs
 
-        // Action: Execution of service
+        // Action
         deleteDataServiceCoroutine.delete(existingId)
 
-        // Assert: verify results
+        // Assert
         coVerify(exactly = 1) { dataRepository.findById(existingId) }
         coVerify(exactly = 1) { dataRepository.deleteById(existingId) }
     }
 
     @Test
     fun `should throw exception when ID does not exist`() = runTest {
-        // Arrange: Scenario config
+        // Arrange
         val nonExistingId = 1000L
         coEvery { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
-        // Action: Execution of service
+        // Action
         val exception = assertThrows<DataNotFoundException> {
             deleteDataServiceCoroutine.delete(nonExistingId)
         }
 
-        // Assert: verify results
+        // Assert
         assertEquals(
             "Data with ID $nonExistingId was not found for deletion",
             exception.message

@@ -20,14 +20,14 @@ class CreateDataServiceCoroutineTest {
 
     @Test
     fun `should save data using coroutines`() = runTest {
-        // Arrange: Scenario config
+        // Arrange
         val dataDto = CreateDataDto(DataStatusEnum.TODO)
         coEvery { dataRepository.save(any()) } answers { firstArg() }
 
-        // Action: Execution of service
+        // Action
         createDataServiceCoroutine.create(dataDto)
 
-        // Assert: verify results
+        // Assert
         coVerify(exactly = 1) { dataRepository.save(dataDto.toEntity()) }
     }
 }

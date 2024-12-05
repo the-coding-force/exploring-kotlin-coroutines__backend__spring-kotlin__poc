@@ -25,7 +25,7 @@ class UpdateDataServiceCoroutineTest {
 
     @Test
     fun `should update entity when ID exists`() = runTest {
-        // Arrange: Scenario config
+        // Arrange
         val existingId = 1L
         val existingBody = UpdateDataRequest(DataStatusEnum.COMPLETED)
         val mockData = DataEntity(existingId, DataStatusEnum.TODO.name)
@@ -33,10 +33,10 @@ class UpdateDataServiceCoroutineTest {
         coEvery { dataRepository.findById(existingId) } returns Optional.of(mockData)
         coEvery { dataRepository.save(any()) } answers { firstArg() }
 
-        // Action: Execution of service
+        // Action
         updateDataServiceCoroutine.update(existingBody.toDto(existingId))
 
-        // Assert: verify results
+        // Assert
         coVerify(exactly = 1) { dataRepository.findById(existingId) }
         val updatedData = mockData.copy(status = existingBody.status.name)
         coVerify(exactly = 1) { dataRepository.save(updatedData) }
@@ -44,18 +44,18 @@ class UpdateDataServiceCoroutineTest {
 
     @Test
     fun `should throw exception when ID does not exist`() = runTest {
-        // Arrange: Scenario config
+        // Arrange
         val nonExistingId = 1000L
         val existingBody = UpdateDataRequest(DataStatusEnum.COMPLETED)
 
         coEvery { dataRepository.findById(nonExistingId) } returns Optional.empty()
 
-        // Action: Execution of service
+        // Action
         val exception = assertThrows<DataNotFoundException> {
             updateDataServiceCoroutine.update(existingBody.toDto(nonExistingId))
         }
 
-        // Assert: verify results
+        // Assert
         assertEquals(
             "Data with ID $nonExistingId was not found for update",
             exception.message

@@ -20,14 +20,14 @@ class CreateDataServiceTest {
 
     @Test
     fun `should save entity`() {
-        // Arrange: Scenario config
+        // Arrange
         val dto = CreateDataDto(DataStatusEnum.TODO)
         every { dataRepository.save(any()) } answers { firstArg() }
 
-        // Action: Execution of service
+        // Action
         createDataService.create(dto)
 
-        // Assert: Verify results
+        // Assert
         verify(exactly = 1) { dataRepository.save(dto.toEntity()) }
     }
 }
