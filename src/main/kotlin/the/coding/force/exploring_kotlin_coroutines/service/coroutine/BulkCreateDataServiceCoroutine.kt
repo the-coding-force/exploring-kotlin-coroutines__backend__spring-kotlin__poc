@@ -10,12 +10,31 @@ import the.coding.force.exploring_kotlin_coroutines.dto.BulkCreateDataDto
 import the.coding.force.exploring_kotlin_coroutines.mapper.toEntity
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
+/**
+ * Service responsible for testing the speed of I/O operations involving multiple `DataEntity` instances.
+ * It performs asynchronous creation of entities using coroutines to improve performance.
+ *
+ * @author José Iêdo
+ * @param dataRepository Repository used to persist instances of `DataEntity`.
+ */
 @Service
 class BulkCreateDataServiceCoroutine(
     private val dataRepository: DataRepository,
 ) {
+    // Logger to record the status of the execution of the `create` suspend function.
     private val logger = KotlinLogging.logger { }
 
+    /**
+     * Creates a list of `DataEntity` instances in the database asynchronously.
+     *
+     * For each value in `quantity`, a coroutine is launched to execute a task asynchronously.
+     * Once all coroutines are created, the `awaitAll` function waits for their completion.
+     * After all coroutines finish, a success message is logged.
+     *
+     * @param quantity Number of `DataEntity` instances to be saved in the database.
+     * @param dto Data Transfer Object (DTO) received from the controller `create`.
+     * @return `Unit` (no return value).
+     */
     suspend fun create(quantity: Int, dto: BulkCreateDataDto) = coroutineScope {
         val coroutines = (1..quantity).map { index ->
             async {
@@ -30,6 +49,12 @@ class BulkCreateDataServiceCoroutine(
         logger.info { "BulkCreateDataService.create with coroutine, all entities saved" }
     }
 
+    /**
+     * Simulates an asynchronous external network call.
+     * Used to test asynchronous operations within the `create` method.
+     *
+     * @throws InterruptedException if the delay is interrupted.
+     */
     suspend fun fakeNetworkCall() {
         delay(1000)
     }
