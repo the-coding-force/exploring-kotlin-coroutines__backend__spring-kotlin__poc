@@ -40,13 +40,13 @@ class CreateControllerCoroutine(
                     examples = [
                         ExampleObject(
                             value = """{
-                        "timestamp": "2023-12-06T12:34:56",
-                        "status": 500,
-                        "error": "Internal Server Error",
-                        "message": "Unexpected error occurred.",
-                        "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
-                        "path": "/api/coroutine/create"
-                    }"""
+                            "timestamp": "2023-12-06T12:34:56",
+                            "status": 500,
+                            "error": "Internal Server Error",
+                            "message": "Unexpected error occurred.",
+                            "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.Exceṕtion", 
+                            "path": "/api/coroutine/create"
+                           }"""
                         )
                     ]
                 )

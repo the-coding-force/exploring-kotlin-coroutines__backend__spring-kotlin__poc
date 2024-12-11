@@ -40,13 +40,13 @@ class ReadControllerCoroutine(
                     examples = [
                         ExampleObject(
                             value = """{
-                        "timestamp": "2024-12-11T13:19:14.083776445-03:00",
-                        "status": 404,
-                        "error": "NOT_FOUND",
-                        "message": "Data with ID x was not found to retrieve it",
-                        "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
-                        "path": "/api/coroutine/delete/10"
-                    }"""
+                            "timestamp": "2024-12-11T13:19:14.083776445-03:00",
+                            "status": 404,
+                            "error": "NOT_FOUND",
+                            "message": "Data with ID x was not found to retrieve it",
+                            "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
+                            "path": "/api/coroutine/delete/10"
+                           }"""
                         )
                     ]
                 )
@@ -63,7 +63,6 @@ class ReadControllerCoroutine(
             schema = Schema(type = "long", format = "int64", minimum = "1"),
         )
         @PathVariable("id") dataId: Long
-
     ): ResponseEntity<ReadDataResponse> {
         val data = readDataService.read(dataId)
         return ResponseEntity.ok(data)

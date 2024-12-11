@@ -39,13 +39,13 @@ class DeleteControllerCoroutine(
                     examples = [
                         ExampleObject(
                             value = """{
-                        "timestamp": "2024-12-11T13:19:14.083776445-03:00",
-                        "status": 404,
-                        "error": "NOT_FOUND",
-                        "message": "Data with ID x was not found for deletion",
-                        "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
-                        "path": "/api/coroutine/delete/10"
-                    }"""
+                            "timestamp": "2024-12-11T13:19:14.083776445-03:00",
+                            "status": 404,
+                            "error": "NOT_FOUND",
+                            "message": "Data with ID x was not found for deletion",
+                            "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
+                            "path": "/api/coroutine/delete/10"
+                           }"""
                         )
                     ]
                 )
