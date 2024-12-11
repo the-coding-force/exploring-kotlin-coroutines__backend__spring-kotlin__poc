@@ -7,6 +7,6 @@ data class ResponseError(
     val status: Int,
     val error: String,
     val message: String,
-    val exception: Throwable,
+    val exceptionClass: String,
     val path: String
 )
