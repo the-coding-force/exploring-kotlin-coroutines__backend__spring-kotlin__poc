@@ -29,6 +29,7 @@ ext {
     ktLoggingVersion = "3.0.5"
     mockkVersion = "1.13.5"
     kotlinxCoroutineTestVersion = "1.7.3"
+    springdoc = "2.6.0"
 }
 
 dependencies {
@@ -40,6 +41,8 @@ dependencies {
     implementation ("org.flywaydb:flyway-core:$flywayVersion")
     implementation 'io.micrometer:micrometer-registry-prometheus'
     implementation ("io.github.microutils:kotlin-logging-jvm:$ktLoggingVersion")
+    implementation("org.springdoc:springdoc-openapi-starter-webmvc-ui:$springdoc")
+
 
 
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-reactor'
