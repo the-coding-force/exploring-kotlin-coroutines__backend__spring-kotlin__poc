@@ -28,7 +28,7 @@ class UpdateController(
 ) {
     @Operation(
         summary = "update a entity",
-        description = "received a `dataId` as pathVariable and an UpdateDataRequest as requestBody and try to update the data in database"
+        description = "receives a `dataId` as pathVariable and an UpdateDataRequest as requestBody and try to update the data in database"
     )
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),

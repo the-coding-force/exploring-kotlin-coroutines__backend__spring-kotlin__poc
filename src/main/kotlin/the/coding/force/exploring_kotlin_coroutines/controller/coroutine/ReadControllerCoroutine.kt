@@ -26,7 +26,7 @@ class ReadControllerCoroutine(
 
     @Operation(
         summary = "get a entity",
-        description = "received a `dataId` as pathVariable and try to get the data in database"
+        description = "receives a `dataId` as pathVariable and try to get the data in database"
     )
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),

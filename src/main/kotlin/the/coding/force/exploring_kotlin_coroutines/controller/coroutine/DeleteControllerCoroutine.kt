@@ -25,7 +25,7 @@ class DeleteControllerCoroutine(
 
     @Operation(
         summary = "delete a entity",
-        description = "received a `dataId` as pathVariable and try to remove the data in database"
+        description = "receives a `dataId` as pathVariable and try to remove the data in database"
     )
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),

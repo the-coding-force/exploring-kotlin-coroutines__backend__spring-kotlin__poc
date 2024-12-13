@@ -29,7 +29,7 @@ class BulkCreateController(
 ) {
     @Operation(
         summary = "create several data in database outside of a coroutine context",
-        description = "received a `BulkCreateDataRequest` that contains the quantity of data to save in database and the status"
+        description = "receives a `BulkCreateDataRequest` that contains the quantity of data to save in database and the status"
     )
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),

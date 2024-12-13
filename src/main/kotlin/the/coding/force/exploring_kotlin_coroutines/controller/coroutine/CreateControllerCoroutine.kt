@@ -26,7 +26,7 @@ class CreateControllerCoroutine(
 ) {
     @Operation(
         summary = "create a DataEntity",
-        description = "received a `CreateDataRequest` as body and convert to DTO to save in database",
+        description = "receives a `CreateDataRequest` as body and convert to DTO to save in database",
     )
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),

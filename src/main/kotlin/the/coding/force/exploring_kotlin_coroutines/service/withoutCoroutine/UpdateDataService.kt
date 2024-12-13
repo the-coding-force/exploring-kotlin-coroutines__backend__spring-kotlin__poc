@@ -7,8 +7,6 @@ import the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundExcept
 import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 
 /**
- * This Service has the method `update` to update a `DataEntity`
- *
  * @author Lucas Terra
  * @param dataRepository repository from DataEntity
  * @property update method to update a `DataEntity`
@@ -17,22 +15,13 @@ import the.coding.force.exploring_kotlin_coroutines.repository.DataRepository
 class UpdateDataService(
     private val dataRepository: DataRepository
 ) {
-    // logger to register the status of method update
     private val logger = KotlinLogging.logger { }
 
     /**
-     * received a `UpdateDataDto` from controller `update`
-     * and try to find the data to update it with the new information,
-     * if the data exists it will be updated with UpdateDataDto status info,
-     * case the data does not exist an exception `DataNotFoundException` will be thrown.
-     * The `logger` will register the status of update operation
-     *
      * @author Adriano Santos
      * @param dto is a data transfer objet from UpdateDataDto received from controller update
-     * @return `Unit`
      * @throws DataNotFoundException when the data with `ID` inside UpdateDataDto was not found this exception is thrown
      * @see UpdateDataDto
-     * @see logger
      */
     fun update(dto: UpdateDataDto) {
         dataRepository.findById(dto.id)
