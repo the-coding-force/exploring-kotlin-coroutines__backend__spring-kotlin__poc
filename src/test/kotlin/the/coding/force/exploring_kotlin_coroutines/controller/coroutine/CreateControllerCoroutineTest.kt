@@ -84,6 +84,7 @@ class CreateControllerCoroutineTest : IntegrationTests() {
     }
 
     private fun assertObjError(objError: ResponseError) {
+        println(objError)
         assertThat(objError.timestamp).isNotNull()
         assertThat(objError.status).isEqualTo(400)
         assertThat(objError.error).isEqualTo("BAD_REQUEST")

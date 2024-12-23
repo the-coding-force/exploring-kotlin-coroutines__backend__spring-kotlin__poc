@@ -87,6 +87,7 @@ class DeleteControllerTest : IntegrationTests() {
         exceptionClass: String,
         path: String
     ) {
+        println(objError)
         assertThat(objError.timestamp).isNotNull()
         assertThat(objError.status).isEqualTo(status)
         assertThat(objError.error).isEqualTo(error)
