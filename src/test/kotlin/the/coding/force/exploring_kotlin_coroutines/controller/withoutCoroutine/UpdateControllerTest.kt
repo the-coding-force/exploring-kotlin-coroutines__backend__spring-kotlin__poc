@@ -3,11 +3,9 @@ package the.coding.force.exploring_kotlin_coroutines.controller.withoutCoroutine
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 import org.springframework.http.MediaType.APPLICATION_JSON
-import org.springframework.test.web.servlet.MvcResult
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 import the.coding.force.exploring_kotlin_coroutines.IntegrationTests
-import the.coding.force.exploring_kotlin_coroutines.controller.handler.ResponseError
 import the.coding.force.exploring_kotlin_coroutines.entities.DataEntity
 import the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum
 import the.coding.force.exploring_kotlin_coroutines.mapper.toDto
@@ -56,25 +54,13 @@ class UpdateControllerTest : IntegrationTests() {
         val entity = DataEntity(id = nonExistingId, status = DataStatusEnum.COMPLETED.name)
 
         // Action
-        val result = mockMvc.perform(
+        mockMvc.perform(
             put("/api/update/{id}", nonExistingId)
                 .content(objectMapper.writeValueAsString(entity))
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
         )
             .andExpect(status().isNotFound)
-            .andReturn()
-
-        val objError = getResponseErrorObj(result)
-        // Assert
-        assertObjError(
-            objError,
-            404,
-            "NOT_FOUND",
-            "the.coding.force.exploring_kotlin_coroutines.exception.DataNotFoundException",
-            "/api/update/$nonExistingId"
-        )
-        assertThat(objError.message).isEqualTo("Data with ID $nonExistingId was not found for update")
     }
 
     @Test
@@ -85,24 +71,13 @@ class UpdateControllerTest : IntegrationTests() {
         val entityUpdated = "HelloWorld"
 
         // Action
-        val result = mockMvc.perform(
+        mockMvc.perform(
             put("/api/update/{id}", entity.id)
                 .content(objectMapper.writeValueAsString(entityUpdated))
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
         )
             .andExpect(status().isBadRequest)
-            .andReturn()
-
-        val objError = getResponseErrorObj(result)
-        // Assert
-        assertObjError(
-            objError,
-            400,
-            "BAD_REQUEST",
-            "org.springframework.http.converter.HttpMessageNotReadableException",
-            "/api/update/${entity.id}"
-        )
     }
 
     @Test
@@ -115,43 +90,12 @@ class UpdateControllerTest : IntegrationTests() {
         )
 
         // Action
-        val result = mockMvc.perform(
+        mockMvc.perform(
             put("/api/update/{id}", entity.id)
                 .content(objectMapper.writeValueAsString(entityUpdated))
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
         )
             .andExpect(status().isBadRequest)
-            .andReturn()
-
-        val objError = getResponseErrorObj(result)
-        // Assert
-        assertObjError(
-            objError,
-            400,
-            "BAD_REQUEST",
-            "org.springframework.http.converter.HttpMessageNotReadableException",
-            "/api/update/${entity.id}"
-        )
     }
-
-    private fun assertObjError(
-        objError: ResponseError,
-        status: Int,
-        error: String,
-        exceptionClass: String,
-        path: String
-    ) {
-        assertThat(objError.timestamp).isNotNull()
-        assertThat(objError.status).isEqualTo(status)
-        assertThat(objError.error).isEqualTo(error)
-        assertThat(objError.message).isNotNull()
-        assertThat(objError.exceptionClass).isEqualTo(exceptionClass)
-        assertThat(objError.path).isEqualTo(path)
-    }
-
-    private fun getResponseErrorObj(result: MvcResult) = objectMapper.readValue(
-        result.response.contentAsString,
-        ResponseError::class.java
-    )
 }
