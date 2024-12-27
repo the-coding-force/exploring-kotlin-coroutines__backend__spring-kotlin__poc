@@ -1,8 +1,7 @@
-package the.coding.force.exploring_kotlin_coroutines.controller
+package the.coding.force.exploring_kotlin_coroutines.controller.withoutCoroutine
 
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
-import org.springframework.data.repository.findByIdOrNull
 import org.springframework.http.MediaType.APPLICATION_JSON
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
@@ -14,9 +13,8 @@ import the.coding.force.exploring_kotlin_coroutines.mapper.toEntity
 import the.coding.force.exploring_kotlin_coroutines.request.CreateDataRequest
 
 class UpdateControllerTest : IntegrationTests() {
-
     @Test
-    fun `Should update a task with success - Controller without coroutine`() {
+    fun `Should update a task with success`() {
         // Arrange
         val createDataRequest = CreateDataRequest(
             status = DataStatusEnum.TODO
@@ -50,37 +48,54 @@ class UpdateControllerTest : IntegrationTests() {
     }
 
     @Test
-    fun `Should update a task with success - Controller with coroutine`() {
+    fun `should throw a DataNotFoundException when ID was not found to update`() {
         // Arrange
-        val createDataRequest = CreateDataRequest(
-            status = DataStatusEnum.TODO
+        val nonExistingId = 1000L
+        val entity = DataEntity(id = nonExistingId, status = DataStatusEnum.COMPLETED.name)
+
+        // Action
+        mockMvc.perform(
+            put("/api/update/{id}", nonExistingId)
+                .content(objectMapper.writeValueAsString(entity))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
         )
+            .andExpect(status().isNotFound)
+    }
 
-        val entityBefore = repository.save(
-            createDataRequest.toDto().toEntity()
+    @Test
+    fun `should throw a HttpMessageNotReadableException when requestBody was wrote incorrectly`() {
+        // Arrange
+        val entity = repository.save(DataEntity(status = DataStatusEnum.TODO.name))
+
+        val entityUpdated = "HelloWorld"
+
+        // Action
+        mockMvc.perform(
+            put("/api/update/{id}", entity.id)
+                .content(objectMapper.writeValueAsString(entityUpdated))
+                .contentType(APPLICATION_JSON)
+                .accept(APPLICATION_JSON)
         )
+            .andExpect(status().isBadRequest)
+    }
 
-        println("entityBefore: $entityBefore")
+    @Test
+    fun `should throw a HttpMessageNotReadableException when some field on requestBody was wrote incorrectly`() {
+        // Arrange
+        val entity = repository.save(DataEntity(status = DataStatusEnum.TODO.name))
 
-        val entityUpdates = DataEntity(
-            id = entityBefore.id,
-            status = DataStatusEnum.COMPLETED.name,
+        val entityUpdated = DataEntity(
+            status = "HelloWorld"
         )
 
         // Action
         mockMvc.perform(
-            put("/api/coroutine/update/{id}", entityBefore.id)
-                .content(objectMapper.writeValueAsString(entityUpdates))
+            put("/api/update/{id}", entity.id)
+                .content(objectMapper.writeValueAsString(entityUpdated))
                 .contentType(APPLICATION_JSON)
                 .accept(APPLICATION_JSON)
         )
-            .andExpect(status().isOk)
-
-        Thread.sleep(1000) // required to pass the test
-        val entityAfter = repository.findByIdOrNull(entityUpdates.id!!)
-
-        // Assert
-        assertThat(entityAfter!!.id).isEqualTo(entityUpdates.id)
-        assertThat(entityAfter.status).isEqualTo(entityUpdates.status)
+            .andExpect(status().isBadRequest)
     }
 }

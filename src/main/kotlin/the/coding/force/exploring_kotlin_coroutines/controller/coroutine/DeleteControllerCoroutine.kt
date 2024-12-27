@@ -50,7 +50,50 @@ class DeleteControllerCoroutine(
                     ]
                 )
             ]
-        )
+        ),
+        ApiResponse(
+            responseCode = "400",
+            description = "bad request",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = ResponseError::class),
+                    examples = [
+                        ExampleObject(
+                            value = """{
+                            "timestamp": "2024-12-11T13:19:14.083776445-03:00",
+                            "status": 400,
+                            "error": "BAD_REQUEST",
+                            "message": "Failed to convert value of type 'java.lang.String' to required type 'long'; For input string: \"??\"",
+                            "exceptionClass": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException", 
+                            "path": "/api/coroutine/delete/HelloWorld"
+                           }"""
+                        )
+                    ]
+                )
+            ]
+        ),
+        ApiResponse(
+            responseCode = "500",
+            description = "internal server error",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = ResponseError::class),
+                    examples = [
+                        ExampleObject(
+                            value = """{
+                            "timestamp": "2023-12-06T12:34:56",
+                            "status": 500,
+                            "error": "Internal Server Error",
+                            "message": "Unexpected error occurred.",
+                            "path": "/api/coroutine/delete/10"
+                           }"""
+                        )
+                    ]
+                )
+            ]
+        ),
     )
     @DeleteMapping("delete/{id}")
     suspend fun delete(

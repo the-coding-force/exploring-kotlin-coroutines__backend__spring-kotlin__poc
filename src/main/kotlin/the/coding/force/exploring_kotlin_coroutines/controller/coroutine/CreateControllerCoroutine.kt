@@ -31,6 +31,40 @@ class CreateControllerCoroutine(
     @ApiResponses(
         ApiResponse(responseCode = "200", description = "success"),
         ApiResponse(
+            responseCode = "400",
+            description = "bad request",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = ResponseError::class),
+                    examples = [
+                        ExampleObject(
+                            value = """{
+                                "possibleErrors": [
+                                    {
+                                        "timestamp": "2024-12-22T10:13:33.072654006-03:00",
+                                        "status": 400,
+                                        "error": "BAD_REQUEST",
+                                        "message": "JSON parse error: Cannot deserialize value of type `the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum` from String \"??\": not one of the values accepted for Enum class: [DELETED, COMPLETED, TODO]",
+                                        "exceptionClass": "org.springframework.http.converter.HttpMessageNotReadableException",
+                                        "path": "/api/coroutine/create"
+                                    },
+                                    {
+                                        "timestamp": "2024-12-22T10:13:33.072654006-03:00",
+                                        "status": 400,
+                                        "error": "BAD_REQUEST",
+                                        "message": "JSON parse error: Unrecognized token '??': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')",
+                                        "exceptionClass": "org.springframework.http.converter.HttpMessageNotReadableException",
+                                        "path": "/api/coroutine/create"
+                                    }
+                                ]
+                            }"""
+                        ),
+                    ]
+                )
+            ]
+        ),
+        ApiResponse(
             responseCode = "500",
             description = "internal server error",
             content = [

@@ -48,13 +48,76 @@ class UpdateControllerCoroutine(
                             "error": "NOT_FOUND",
                             "message": "Data with ID x was not found for update",
                             "exceptionClass": "the.coding.force.exploring_kotlin_coroutines.controller.coroutine.DataNotFoundException", 
-                            "path": "/api/coroutine/delete/10"
+                            "path": "/api/coroutine/update/10"
                            }"""
                         )
                     ]
                 )
             ]
-        )
+        ),
+        ApiResponse(
+            responseCode = "400",
+            description = "bad request",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = ResponseError::class),
+                    examples = [
+                        ExampleObject(
+                            value = """{
+                                "possibleErrors": [
+                                    {
+                                        "timestamp": "2024-12-22T10:13:33.072654006-03:00",
+                                        "status": 400,
+                                        "error": "BAD_REQUEST",
+                                        "message": "JSON parse error: Cannot deserialize value of type `the.coding.force.exploring_kotlin_coroutines.enums.DataStatusEnum` from String \"??\": not one of the values accepted for Enum class: [DELETED, COMPLETED, TODO]",
+                                        "exceptionClass": "org.springframework.http.converter.HttpMessageNotReadableException",
+                                        "path": "/api/coroutine/update/10"
+                                    },
+                                    {
+                                        "timestamp": "2024-12-22T10:13:33.072654006-03:00",
+                                        "status": 400,
+                                        "error": "BAD_REQUEST",
+                                        "message": "JSON parse error: Unrecognized token '??': was expecting (JSON String, Number, Array, Object or token 'null', 'true' or 'false')",
+                                        "exceptionClass": "org.springframework.http.converter.HttpMessageNotReadableException",
+                                        "path": "/api/coroutine/update/10"
+                                    },
+                                    {
+                                        "timestamp": "2024-12-11T13:19:14.083776445-03:00",
+                                        "status": 400,
+                                        "error": "BAD_REQUEST",
+                                        "message": "Failed to convert value of type 'java.lang.String' to required type 'long'; For input string: \"??\"",
+                                        "exceptionClass": "org.springframework.web.method.annotation.MethodArgumentTypeMismatchException", 
+                                        "path": "/api/coroutine/update/HelloWorld"
+                                    }
+                                ]
+                            }"""
+                        )
+                    ]
+                )
+            ]
+        ),
+        ApiResponse(
+            responseCode = "500",
+            description = "internal server error",
+            content = [
+                Content(
+                    mediaType = "application/json",
+                    schema = Schema(implementation = ResponseError::class),
+                    examples = [
+                        ExampleObject(
+                            value = """{
+                            "timestamp": "2023-12-06T12:34:56",
+                            "status": 500,
+                            "error": "Internal Server Error",
+                            "message": "Unexpected error occurred.",
+                            "path": "/api/coroutine/update/10"
+                           }"""
+                        )
+                    ]
+                )
+            ]
+        ),
     )
     @PutMapping("update/{id}")
     suspend fun update(
